@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'MqttHandler.dart';
 
 class StationDetailPage extends StatefulWidget {
   const StationDetailPage({super.key, required this.stationName});
@@ -17,7 +14,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
   MqttHandler mqttHandler = MqttHandler();
 
 
-
+  
 
   @override
   void initState() {
@@ -34,15 +31,17 @@ class _StationDetailPageState extends State<StationDetailPage> {
         title: Text(widget.stationName),
       ),
       body: Center(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            
             const Text('Temperatura Actual: ',
                 style: TextStyle(color: Colors.black, fontSize: 25)),
             ValueListenableBuilder<String>(
               builder: (BuildContext context, String value, Widget? child) {
                 if(value.isEmpty){
-                  return MyWidget();
+                  return MyWidget(stationName : widget.stationName);
                 }else {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,6 +58,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
               },
               valueListenable: mqttHandler.data,
             ),
+
     ],
         ),
       ),
@@ -67,8 +67,8 @@ class _StationDetailPageState extends State<StationDetailPage> {
 
 }
 class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
-
+  const MyWidget({super.key, required this.stationName});
+  final String stationName;
 
 
   @override
@@ -81,12 +81,13 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   void initState() {
     super.initState();
-    getUltMsj();
+    getUltMsj(widget.stationName);
   }
 
-  Future<String> getUltMsj() async {
+  Future<String> getUltMsj(stationName) async {
     prefs = await SharedPreferences.getInstance();
     final ultMsj = prefs.getString('ultMsj-$stationName') ?? '';
+    print('Get-$ultMsj');
     return ultMsj;
   }
 
@@ -94,7 +95,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
 
     return FutureBuilder(
-        future: getUltMsj(),
+        future: getUltMsj(widget.stationName),
         builder: (context, AsyncSnapshot<String> snapshot) {
             return
               Text(snapshot.data!,

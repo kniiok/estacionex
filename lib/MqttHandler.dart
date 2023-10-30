@@ -83,6 +83,7 @@ class MqttHandler with ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       // set value
       await prefs.setString('ultMsj-$stationId', data.value);
+      print('Set-ultMsj-$stationId');
       notifyListeners();
       print(
           'New data arrived: topic is <${c[0].topic}>, payload is $pt');
