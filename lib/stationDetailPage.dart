@@ -86,7 +86,7 @@ class _MyWidgetState extends State<MyWidget> {
 
   Future<String> getUltMsj() async {
     prefs = await SharedPreferences.getInstance();
-    final ultMsj = prefs.getString('ultMsj-$widget.stationName') ?? '';
+    final ultMsj = prefs.getString('ultMsj-$stationName') ?? '';
     return ultMsj;
   }
 
