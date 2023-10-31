@@ -13,7 +13,11 @@ class StationDetailPage extends StatefulWidget {
 }
 
 class _StationDetailPageState extends State<StationDetailPage> {
-
+  int _selectedIndex = 0;
+  NavigationRailLabelType labelType = NavigationRailLabelType.all;
+  bool showLeading = false;
+  bool showTrailing = false;
+  double groupAlignment = -1.0;
   @override
   void initState() {
     super.initState();
@@ -25,242 +29,300 @@ class _StationDetailPageState extends State<StationDetailPage> {
       appBar: AppBar(
         title: Text(widget.stationName),
       ),
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(4),
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        crossAxisCount: 2,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.lightBlue[100],
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(
-                    5.0,
-                    5.0,
-                  ),
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
-                ), //BoxShadow
-                BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 0.0,
-                  spreadRadius: 0.0,
-                ), //BoxShadow
-              ],
-            ),
-            child: Center(
-              child: Row(
-                children: <Widget>[
-                  LayoutBuilder(builder: (context, constraint) {
-                    return Icon(Icons.brightness_5_outlined,
-                        size: constraint.biggest.height / 3);
-                  }),
-                  ListenerWidget(
-                      stationName: widget.stationName, parameter: 'temp'),
-                      const Text('F'),
-                ],
+      body: Row(
+        children: <Widget>[
+          NavigationRail(
+            selectedIndex: _selectedIndex,
+            groupAlignment: groupAlignment,
+            onDestinationSelected: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            labelType: labelType,
+            leading: showLeading
+                ? FloatingActionButton(
+                    elevation: 0,
+                    onPressed: () {
+                      // Add your onPressed code here!
+                    },
+                    child: const Icon(Icons.add),
+                  )
+                : const SizedBox(),
+            trailing: showTrailing
+                ? IconButton(
+                    onPressed: () {
+                      // Add your onPressed code here!
+                    },
+                    icon: const Icon(Icons.more_horiz_rounded),
+                  )
+                : const SizedBox(),
+            destinations: const <NavigationRailDestination>[
+              NavigationRailDestination(
+                icon: Icon(Icons.notifications_active_outlined),
+                selectedIcon: Icon(Icons.notifications_active),
+                label: Text('Alertas'),
               ),
-            ),
+              NavigationRailDestination(
+                icon: Icon(Icons.map_outlined),
+                selectedIcon: Icon(Icons.map),
+                label: Text('Mapa'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.adjust_outlined),
+                selectedIcon: Icon(Icons.adjust),
+                label: Text('Ajustes'),
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.lightBlue[100],
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(
-                    5.0,
-                    5.0,
+          const VerticalDivider(thickness: 1, width: 1),
+          Expanded(
+            child: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(4),
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              crossAxisCount: 2,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[100],
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxShadow
+                    ],
                   ),
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
-                ), //BoxShadow
-                BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 0.0,
-                  spreadRadius: 0.0,
-                ), //BoxShadow
-              ],
-            ),
-            child: Center(
-              child: Row(
-                children: <Widget>[
-                  LayoutBuilder(builder: (context, constraint) {
-                    return Icon(Icons.air,
-                        size: constraint.biggest.height / 3);
-                  }),
-                  ListenerWidget(
-                      stationName: widget.stationName,
-                      parameter: 'wind_speed_hi_last_2_min'),
-                      const Text('km/h'),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.lightBlue[100],
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(
-                    5.0,
-                    5.0,
+                  child: Center(
+                    child: Row(
+                      children: <Widget>[
+                        LayoutBuilder(builder: (context, constraint) {
+                          return Icon(Icons.brightness_5_outlined,
+                              size: constraint.biggest.height / 3);
+                        }),
+                        ListenerWidget(
+                            stationName: widget.stationName, parameter: 'temp'),
+                        const Text('F'),
+                      ],
+                    ),
                   ),
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
-                ), //BoxShadow
-                BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 0.0,
-                  spreadRadius: 0.0,
-                ), //BoxShadow
-              ],
-            ),
-            child: Center(
-              child: Row(
-                children: <Widget>[
-                  LayoutBuilder(builder: (context, constraint) {
-                    return Icon(Icons.air, size: constraint.biggest.height / 3);
-                  }),
-                  LayoutBuilder(builder: (context, constraint) {
-                    return Icon(Icons.arrow_forward_ios,
-                        size: constraint.biggest.height / 6);
-                  }),
-                 ListenerWidget(
-                      stationName: widget.stationName,
-                      parameter: 'wind_dir_at_hi_speed_last_2_min'),
-                      const Text('°'),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.lightBlue[100],
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(
-                    5.0,
-                    5.0,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[100],
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxShadow
+                    ],
                   ),
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
-                ), //BoxShadow
-                BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 0.0,
-                  spreadRadius: 0.0,
-                ), //BoxShadow
-              ],
-            ),
-            child: Center(
-              child: Row(
-                children: <Widget>[
-                  LayoutBuilder(builder: (context, constraint) {
-                    return Icon(Icons.vertical_align_bottom,
-                        size: constraint.biggest.height / 3);
-                  }),
-                  ListenerWidget(
-                      stationName: widget.stationName, parameter: 'dew_point'),
-                      const Text('bar'),
-                ],
-                
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.lightBlue[100],
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(
-                    5.0,
-                    5.0,
+                  child: Center(
+                    child: Row(
+                      children: <Widget>[
+                        LayoutBuilder(builder: (context, constraint) {
+                          return Icon(Icons.air,
+                              size: constraint.biggest.height / 3);
+                        }),
+                        ListenerWidget(
+                            stationName: widget.stationName,
+                            parameter: 'wind_speed_hi_last_2_min'),
+                        const Text('km/h'),
+                      ],
+                    ),
                   ),
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
-                ), //BoxShadow
-                BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 0.0,
-                  spreadRadius: 0.0,
-                ), //BoxShadow
-              ],
-            ),
-            child: Center(
-              child: Row(
-                children: <Widget>[
-                  LayoutBuilder(builder: (context, constraint) {
-                    return Icon(Icons.water_damage,
-                        size: constraint.biggest.height / 3);
-                  }),
-                 ListenerWidget(
-                      stationName: widget.stationName, parameter: 'hum'),
-                      const Text('%'),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.lightBlue[100],
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(
-                    5.0,
-                    5.0,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[100],
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxShadow
+                    ],
                   ),
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
-                ), //BoxShadow
-                BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 0.0,
-                  spreadRadius: 0.0,
-                ), //BoxShadow
+                  child: Center(
+                    child: Row(
+                      children: <Widget>[
+                        LayoutBuilder(builder: (context, constraint) {
+                          return Icon(Icons.air,
+                              size: constraint.biggest.height / 3);
+                        }),
+                        LayoutBuilder(builder: (context, constraint) {
+                          return Icon(Icons.arrow_forward_ios,
+                              size: constraint.biggest.height / 6);
+                        }),
+                        ListenerWidget(
+                            stationName: widget.stationName,
+                            parameter: 'wind_dir_at_hi_speed_last_2_min'),
+                        const Text('°'),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[100],
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxShadow
+                    ],
+                  ),
+                  child: Center(
+                    child: Row(
+                      children: <Widget>[
+                        LayoutBuilder(builder: (context, constraint) {
+                          return Icon(Icons.vertical_align_bottom,
+                              size: constraint.biggest.height / 3);
+                        }),
+                        ListenerWidget(
+                            stationName: widget.stationName,
+                            parameter: 'dew_point'),
+                        const Text('bar'),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[100],
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxShadow
+                    ],
+                  ),
+                  child: Center(
+                    child: Row(
+                      children: <Widget>[
+                        LayoutBuilder(builder: (context, constraint) {
+                          return Icon(Icons.water_damage,
+                              size: constraint.biggest.height / 3);
+                        }),
+                        ListenerWidget(
+                            stationName: widget.stationName, parameter: 'hum'),
+                        const Text('%'),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[100],
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxShadow
+                    ],
+                  ),
+                  child: Center(
+                    child: Row(
+                      children: <Widget>[
+                        LayoutBuilder(builder: (context, constraint) {
+                          return Icon(Icons.water_drop_outlined,
+                              size: constraint.biggest.height / 3);
+                        }),
+                        ListenerWidget(
+                            stationName: widget.stationName,
+                            parameter: 'rain_rate_last_mm'),
+                        const Text('mm'),
+                      ],
+                    ),
+                  ),
+                ),
               ],
-            ),
-             child: Center(
-              child: Row(
-                children: <Widget>[
-                  LayoutBuilder(builder: (context, constraint) {
-                    return Icon(Icons.water_drop_outlined,
-                        size: constraint.biggest.height / 3);
-                  }),
-                 ListenerWidget(
-                      stationName: widget.stationName, parameter: 'rain_rate_last_mm'),
-                      const Text('mm'),
-                ],
-              ),
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() => ''),
+        tooltip: 'Nueva Alerta',
+        child: const Icon(Icons.circle_notifications),
       ),
     );
   }
@@ -299,7 +361,7 @@ class _ListenerWidgetState extends State<ListenerWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(value,
-                   style: const TextStyle(color: Colors.black, fontSize: 25))
+                  style: const TextStyle(color: Colors.black, fontSize: 25))
             ],
           );
         }
@@ -346,5 +408,36 @@ class _MyWidgetState extends State<MyWidget> {
             style: const TextStyle(color: Colors.black, fontSize: 25),
           );
         });
+  }
+}
+
+class SwitchExample extends StatefulWidget {
+  const SwitchExample({super.key});
+
+  @override
+  State<SwitchExample> createState() => _SwitchExampleState();
+}
+
+class _SwitchExampleState extends State<SwitchExample> {
+  bool light = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Text('Desea Recibir una alerta?'),
+        Switch(
+          // This bool value toggles the switch.
+          value: light,
+          activeColor: Colors.green,
+          onChanged: (bool value) {
+            // This is called when the user toggles the switch.
+            setState(() {
+              light = value;
+            });
+          },
+        ),
+      ],
+    );
   }
 }
