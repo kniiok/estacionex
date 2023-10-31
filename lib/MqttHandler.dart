@@ -69,7 +69,7 @@ class MqttHandler with ChangeNotifier {
         break;
     }
 
-    final topic = '$stationId/$sensor/$parameter';
+    final topic = '$stationId-$sensor/$parameter';
     print('Subscribing to the $topic topic');
     client.subscribe(topic, MqttQos.atMostOnce);
 

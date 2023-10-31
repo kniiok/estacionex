@@ -64,6 +64,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   }),
                   ListenerWidget(
                       stationName: widget.stationName, parameter: 'temp'),
+                      const Text('F'),
                 ],
               ),
             ),
@@ -101,6 +102,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   ListenerWidget(
                       stationName: widget.stationName,
                       parameter: 'wind_speed_hi_last_2_min'),
+                      const Text('km/h'),
                 ],
               ),
             ),
@@ -136,11 +138,12 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   }),
                   LayoutBuilder(builder: (context, constraint) {
                     return Icon(Icons.arrow_forward_ios,
-                        size: constraint.biggest.height / 3);
+                        size: constraint.biggest.height / 6);
                   }),
                  ListenerWidget(
                       stationName: widget.stationName,
                       parameter: 'wind_dir_at_hi_speed_last_2_min'),
+                      const Text('°'),
                 ],
               ),
             ),
@@ -177,7 +180,9 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   }),
                   ListenerWidget(
                       stationName: widget.stationName, parameter: 'dew_point'),
+                      const Text('bar'),
                 ],
+                
               ),
             ),
           ),
@@ -213,6 +218,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   }),
                  ListenerWidget(
                       stationName: widget.stationName, parameter: 'hum'),
+                      const Text('%'),
                 ],
               ),
             ),
@@ -249,6 +255,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   }),
                  ListenerWidget(
                       stationName: widget.stationName, parameter: 'rain_rate_last_mm'),
+                      const Text('mm'),
                 ],
               ),
             ),
