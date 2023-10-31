@@ -62,10 +62,10 @@ class MqttHandler with ChangeNotifier {
         sensor = 'Sensor-525327';
         break;
       case 'Estación-145839':
-        sensor = 'Sensor-653828';
+        sensor = 'Sensor-653824';
         break;
       case 'Estación-145862':
-        sensor = 'Sensor-653141';
+        sensor = 'Sensor-558414';
         break;
     }
 

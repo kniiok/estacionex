@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'notificationsPage.dart';
 class StationDetailPage extends StatefulWidget {
   const StationDetailPage({super.key, required this.stationName});
   final String stationName;
@@ -28,6 +28,17 @@ class _StationDetailPageState extends State<StationDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.stationName),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: Row(
         children: <Widget>[
@@ -58,20 +69,21 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   )
                 : const SizedBox(),
             destinations: const <NavigationRailDestination>[
+              
               NavigationRailDestination(
-                icon: Icon(Icons.notifications_active_outlined),
-                selectedIcon: Icon(Icons.notifications_active),
-                label: Text('Alertas'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.map_outlined),
-                selectedIcon: Icon(Icons.map),
-                label: Text('Mapa'),
+                icon: Icon(Icons.sensors_outlined),
+                selectedIcon: Icon(Icons.sensors),
+                label: Text('Estación'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.adjust_outlined),
                 selectedIcon: Icon(Icons.adjust),
                 label: Text('Ajustes'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.person_2_outlined),
+                selectedIcon: Icon(Icons.person_2),
+                label: Text('Usuario'),
               ),
             ],
           ),
@@ -111,12 +123,12 @@ class _StationDetailPageState extends State<StationDetailPage> {
                     child: Row(
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
-                          return Icon(Icons.brightness_5_outlined,
+                          return Icon(Icons.device_thermostat,
                               size: constraint.biggest.height / 3);
                         }),
                         ListenerWidget(
                             stationName: widget.stationName, parameter: 'temp'),
-                        const Text('F'),
+                        const Text('°F'),
                       ],
                     ),
                   ),
@@ -186,17 +198,13 @@ class _StationDetailPageState extends State<StationDetailPage> {
                     child: Row(
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
-                          return Icon(Icons.air,
+                          return Icon(Icons.water_drop_outlined,
                               size: constraint.biggest.height / 3);
-                        }),
-                        LayoutBuilder(builder: (context, constraint) {
-                          return Icon(Icons.arrow_forward_ios,
-                              size: constraint.biggest.height / 6);
                         }),
                         ListenerWidget(
                             stationName: widget.stationName,
-                            parameter: 'wind_dir_at_hi_speed_last_2_min'),
-                        const Text('°'),
+                            parameter: 'rain_rate_last_mm'),
+                        const Text('mm'),
                       ],
                     ),
                   ),
@@ -233,7 +241,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                         }),
                         ListenerWidget(
                             stationName: widget.stationName,
-                            parameter: 'dew_point'),
+                            parameter: 'bar_absolute'),
                         const Text('bar'),
                       ],
                     ),
@@ -303,13 +311,13 @@ class _StationDetailPageState extends State<StationDetailPage> {
                     child: Row(
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
-                          return Icon(Icons.water_drop_outlined,
+                          return Icon(Icons.dew_point,
                               size: constraint.biggest.height / 3);
                         }),
                         ListenerWidget(
                             stationName: widget.stationName,
-                            parameter: 'rain_rate_last_mm'),
-                        const Text('mm'),
+                            parameter: 'dew_point'),
+                        const Text('°F'),
                       ],
                     ),
                   ),
@@ -361,7 +369,7 @@ class _ListenerWidgetState extends State<ListenerWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(value,
-                  style: const TextStyle(color: Colors.black, fontSize: 25))
+                  style: const TextStyle(color: Colors.black, fontSize: 18))
             ],
           );
         }
@@ -405,39 +413,10 @@ class _MyWidgetState extends State<MyWidget> {
         builder: (context, AsyncSnapshot<String> snapshot) {
           return Text(
             snapshot.data!,
-            style: const TextStyle(color: Colors.black, fontSize: 25),
+            style: const TextStyle(color: Colors.black, fontSize: 18),
           );
         });
   }
 }
 
-class SwitchExample extends StatefulWidget {
-  const SwitchExample({super.key});
 
-  @override
-  State<SwitchExample> createState() => _SwitchExampleState();
-}
-
-class _SwitchExampleState extends State<SwitchExample> {
-  bool light = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text('Desea Recibir una alerta?'),
-        Switch(
-          // This bool value toggles the switch.
-          value: light,
-          activeColor: Colors.green,
-          onChanged: (bool value) {
-            // This is called when the user toggles the switch.
-            setState(() {
-              light = value;
-            });
-          },
-        ),
-      ],
-    );
-  }
-}
