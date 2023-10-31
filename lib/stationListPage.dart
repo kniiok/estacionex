@@ -3,14 +3,16 @@ import 'package:sensor_flutter_app/stationDetailPage.dart';
 import 'notificationsPage.dart';
 
 class StationListPage extends StatelessWidget {
+  const StationListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de Estaciones'),
+        title: const Text('Lista de Estaciones'),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: const Icon(Icons.notifications),
             onPressed: () {
               Navigator.push(
                 context,
@@ -21,7 +23,7 @@ class StationListPage extends StatelessWidget {
         ],
       ),
       body: ListView(
-        children: [
+        children: const [
           StationItem(name: 'Estación-123501'),
           StationItem(name: 'Estación-167442'),
           StationItem(name: 'Estación-138225'),
@@ -36,7 +38,7 @@ class StationListPage extends StatelessWidget {
 class StationItem extends StatelessWidget {
   final String name;
 
-  StationItem({required this.name});
+  const StationItem({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
