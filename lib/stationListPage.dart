@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_flutter_app/configPage.dart';
 import 'package:sensor_flutter_app/mapPage.dart';
 import 'package:sensor_flutter_app/stationDetailPage.dart';
+import 'package:sensor_flutter_app/userPage.dart';
 import 'notificationsPage.dart';
 
 class StationListPage extends StatefulWidget {
@@ -50,6 +52,18 @@ class _StationListPageState extends State<StationListPage> {
                    Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MapPage()),
+                      );
+                }
+                if(index==2){
+                   Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ConfigPage()),
+                      );
+                }
+                if(index==3){
+                   Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserPage()),
                       );
                 }
               });

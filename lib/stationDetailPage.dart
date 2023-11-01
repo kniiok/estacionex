@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
+import 'package:sensor_flutter_app/configPage.dart';
 import 'package:sensor_flutter_app/mapPage.dart';
+import 'package:sensor_flutter_app/userPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'notificationsPage.dart';
 import 'package:flutter_titled_container/flutter_titled_container.dart';
@@ -51,7 +53,18 @@ class _StationDetailPageState extends State<StationDetailPage> {
             groupAlignment: groupAlignment,
             onDestinationSelected: (int index) {
               setState(() {
-                _selectedIndex = index;
+                 if(index==1){
+                   Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ConfigPage()),
+                      );
+                }
+                if(index==2){
+                   Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserPage()),
+                      );
+                }
               });
             },
             labelType: labelType,
