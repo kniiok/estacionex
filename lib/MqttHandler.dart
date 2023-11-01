@@ -50,26 +50,26 @@ class MqttHandler with ChangeNotifier {
       client.disconnect();
       return -1;
     }
-    var sensor = '';
-    switch (stationId) {
-      case 'Estación-123501':
-        sensor = 'Sensor-464200';
-        break;
-      case 'Estación-167442':
-        sensor = 'Sensor-650015';
-        break;
-      case 'Estación-138225':
-        sensor = 'Sensor-525327';
-        break;
-      case 'Estación-145839':
-        sensor = 'Sensor-653824';
-        break;
-      case 'Estación-145862':
-        sensor = 'Sensor-558414';
-        break;
-    }
+    // var sensor = '';
+    // switch (stationId) {
+    //   case 'Estación-123501':
+    //     sensor = 'Sensor-464200';
+    //     break;
+    //   case 'Estación-167442':
+    //     sensor = 'Sensor-650015';
+    //     break;
+    //   case 'Estación-138225':
+    //     sensor = 'Sensor-525327';
+    //     break;
+    //   case 'Estación-145839':
+    //     sensor = 'Sensor-653824';
+    //     break;
+    //   case 'Estación-145862':
+    //     sensor = 'Sensor-558414';
+    //     break;
+    // }
 
-    final topic = '$stationId-$sensor/$parameter';
+    final topic = '$stationId/$parameter';
     print('Subscribing to the $topic topic');
     client.subscribe(topic, MqttQos.atMostOnce);
 

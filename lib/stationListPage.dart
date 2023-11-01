@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_flutter_app/mapPage.dart';
 import 'package:sensor_flutter_app/stationDetailPage.dart';
 import 'notificationsPage.dart';
 
@@ -45,7 +46,12 @@ class _StationListPageState extends State<StationListPage> {
             groupAlignment: groupAlignment,
             onDestinationSelected: (int index) {
               setState(() {
-                _selectedIndex = index;
+                if(index==1){
+                   Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MapPage()),
+                      );
+                }
               });
             },
             labelType: labelType,
@@ -53,7 +59,7 @@ class _StationListPageState extends State<StationListPage> {
                 ? FloatingActionButton(
                     elevation: 0,
                     onPressed: () {
-                      // Add your onPressed code here!
+                      
                     },
                     child: const Icon(Icons.add),
                   )
@@ -61,7 +67,7 @@ class _StationListPageState extends State<StationListPage> {
             trailing: showTrailing
                 ? IconButton(
                     onPressed: () {
-                      // Add your onPressed code here!
+                    
                     },
                     icon: const Icon(Icons.more_horiz_rounded),
                   )
@@ -93,31 +99,127 @@ class _StationListPageState extends State<StationListPage> {
           Expanded(
             child: ListView(
               children: const [
-                StationItem(name: 'Estación-123501'),
+                Text('Gaiman-Chubut/(Cielos del Sur)'),
+                StationItem(name: 'Estación-123501-Sensor-525320'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                StationItem(name: 'Estación-167442'),
+                Text('Gaiman-Chubut/(Cielos del Sur)'),
+                 StationItem(name: 'Estación-123501-Sensor-525321'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                StationItem(name: 'Estación-138225'),
+                Text('Gaiman-Chubut/(Cielos del Sur)'),
+                 StationItem(name: 'Estación-123501-Sensor-525322'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                StationItem(name: 'Estación-145839'),
+                Text('Gaiman-Chubut/(Cielos del Sur)'),
+                StationItem(name: 'Estación-123501-Sensor-462216'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                StationItem(name: 'Estación-145862'),
+                Text('Gaiman-Chubut/(Cielos del Sur)'),
+                StationItem(name: 'Estación-123501-Sensor-464200'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Gaiman-Chubut/(Glyn 3)'),
+                StationItem(name: 'Estación-167442-Sensor-650013'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Gaiman-Chubut/(Glyn 3)'),
+                StationItem(name: 'Estación-167442-Sensor-650015'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Gaiman-Chubut/(Glyn 3)'),
+                StationItem(name: 'Estación-167442-Sensor-653139'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Trelew-Chubut/(Glyn)'),
+                StationItem(name: 'Estación-138225-Sensor-525326'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Trelew-Chubut/(Glyn)'),
+                StationItem(name: 'Estación-138225-Sensor-525327'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Trelew-Chubut/(Glyn)'),
+                StationItem(name: 'Estación-138225-Sensor-525170'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),        
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                StationItem(name: 'Estación-145839-Sensor-557448'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                StationItem(name: 'Estación-145839-Sensor-653825'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                StationItem(name: 'Estación-145839-Sensor-653824'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                StationItem(name: 'Estación-145839-Sensor-653826'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Trelew-Chubut/(Las Santinas VIRCH)'),
+                StationItem(name: 'Estación-145862-Sensor-558414'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Text('Trelew-Chubut/(Las Santinas VIRCH)'),
+                StationItem(name: 'Estación-145862-Sensor-557537'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                 Text('Trelew-Chubut/(Las Santinas VIRCH)'),
+                StationItem(name: 'Estación-145862-Sensor-653141'),
                 Divider(
                   height: 0,
                   thickness: 1,
