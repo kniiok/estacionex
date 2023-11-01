@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:sensor_flutter_app/notificationsPage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapPage extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
-    return FlutterMap(
+    return Scaffold(appBar: AppBar(
+        title: Text('Mapa de Estaciones'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
+              );
+            },
+          ),
+        ],
+      ),
+      body: FlutterMap(
       options: MapOptions(
         initialCenter: LatLng(-43.86413, -68.49656),
         initialZoom: 5.5,
@@ -306,6 +321,6 @@ class MapPage extends StatelessWidget {
           ],
         ),
       ],
-    );
+    ));
   }
 }
