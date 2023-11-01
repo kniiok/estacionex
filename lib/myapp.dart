@@ -5,6 +5,7 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:provider/provider.dart';
 import 'package:sensor_flutter_app/page_header.dart';
+import 'package:sensor_flutter_app/page_heading.dart';
 import 'package:sensor_flutter_app/stationListPage.dart';
 import 'package:provider/provider.dart';
 import 'package:sensor_flutter_app/model_theme.dart';
@@ -105,7 +106,8 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            new PageHeader(),
+            PageHeader(),
+            PageHeading(title: 'Estaciones INTA'),
             Padding(
               padding: EdgeInsets.all(16.0),
               child: TextField(
