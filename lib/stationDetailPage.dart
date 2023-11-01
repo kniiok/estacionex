@@ -38,7 +38,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MapPage()),
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
               );
             },
           ),

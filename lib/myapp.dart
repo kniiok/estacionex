@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:sensor_flutter_app/page_header.dart';
 import 'package:sensor_flutter_app/stationListPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -99,9 +100,10 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text('Pantalla de Inicio de Sesión'),
+            new PageHeader(),
+            
             Padding(
               padding: EdgeInsets.all(16.0),
               child: TextField(
