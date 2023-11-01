@@ -49,7 +49,7 @@ class MapPage extends StatelessWidget {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('FrutosVirch'),
                           content: Container(
-                              height: 100,
+                              height: 120,
                               child: Column(children: <Widget>[
                                 Container(
                                     alignment: Alignment.bottomLeft,
@@ -104,7 +104,7 @@ class MapPage extends StatelessWidget {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('FrutosVirch'),
                           content: Container(
-                              height: 100,
+                              height: 120,
                               child: Column(children: <Widget>[
                                 Container(
                                     alignment: Alignment.bottomLeft,
@@ -159,7 +159,7 @@ class MapPage extends StatelessWidget {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('FrutosVirch'),
                           content: Container(
-                              height: 100,
+                              height: 120,
                               child: Column(children: <Widget>[
                                 Container(
                                     alignment: Alignment.bottomLeft,
@@ -214,7 +214,7 @@ class MapPage extends StatelessWidget {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('FrutosVirch'),
                           content: Container(
-                              height: 100,
+                              height: 120,
                               child: Column(children: <Widget>[
                                 Container(
                                     alignment: Alignment.bottomLeft,
@@ -269,7 +269,7 @@ class MapPage extends StatelessWidget {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('FrutosVirch'),
                           content: Container(
-                              height: 100,
+                              height: 120,
                               child: Column(children: <Widget>[
                                 Container(
                                     alignment: Alignment.bottomLeft,
