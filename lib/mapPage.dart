@@ -27,9 +27,50 @@ class MapPage extends StatelessWidget {
                 return Column(children: <Widget>[
                   Text('Gaiman-Chubut',
                       style: TextStyle(color: Colors.black, fontSize: 10)),
-                  Icon(Icons.sensors,
+                  GestureDetector(
+                    onTap: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('FrutosVirch'),
+                          content: Container(
+                              height: 100,
+                              child: Column(children: <Widget>[
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Estación Cielos del Sur',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold))),
+                                Divider(),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Id Estación: 123501')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Latitud: -43.31946')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Longitud: -65.46399')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Elevación: 51.255'))
+                              ])),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.sensors,
                       size: constraint.biggest.height / 2,
-                      color: Color.fromARGB(169, 55, 180, 253)),
+                      color: Color.fromARGB(169, 55, 180, 253),
+                    ),
+                  ),
                 ]);
               }),
             ),
@@ -41,9 +82,50 @@ class MapPage extends StatelessWidget {
                 return Column(children: <Widget>[
                   Text('Trelew-Chubut',
                       style: TextStyle(color: Colors.black, fontSize: 10)),
-                  Icon(Icons.sensors,
+                  GestureDetector(
+                    onTap: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('FrutosVirch'),
+                          content: Container(
+                              height: 100,
+                              child: Column(children: <Widget>[
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Estación Glyn',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold))),
+                                Divider(),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Id Estación: 138225')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Latitud: -43.29987')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Longitud: -65.41184')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Elevación: 48.561504'))
+                              ])),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.sensors,
                       size: constraint.biggest.height / 2,
-                      color: Color.fromARGB(169, 55, 180, 253)),
+                      color: Color.fromARGB(169, 55, 180, 253),
+                    ),
+                  ),
                 ]);
               }),
             ),
@@ -55,9 +137,50 @@ class MapPage extends StatelessWidget {
                 return Column(children: <Widget>[
                   Text('Los Antiguos-Santa Cruz',
                       style: TextStyle(color: Colors.black, fontSize: 10)),
-                  Icon(Icons.sensors,
+                  GestureDetector(
+                    onTap: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('FrutosVirch'),
+                          content: Container(
+                              height: 100,
+                              child: Column(children: <Widget>[
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Estación Villa Favaloro',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold))),
+                                Divider(),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Id Estación: 145839')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Latitud: -46.528656')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Longitud: -71.66152')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Elevación: 84.97272'))
+                              ])),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.sensors,
                       size: constraint.biggest.height / 2,
-                      color: Color.fromARGB(169, 55, 180, 253)),
+                      color: Color.fromARGB(169, 55, 180, 253),
+                    ),
+                  ),
                 ]);
               }),
             ),
@@ -69,9 +192,50 @@ class MapPage extends StatelessWidget {
                 return Column(children: <Widget>[
                   Text('Trelew-Chubut',
                       style: TextStyle(color: Colors.black, fontSize: 10)),
-                  Icon(Icons.sensors,
+                  GestureDetector(
+                    onTap: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('FrutosVirch'),
+                          content: Container(
+                              height: 100,
+                              child: Column(children: <Widget>[
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Estación Las Santinas VIRCH',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold))),
+                                Divider(),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Id Estación: 145862')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Latitud: -43.27398')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Longitud: -65.38564')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Elevación: 42.403'))
+                              ])),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.sensors,
                       size: constraint.biggest.height / 2,
-                      color: Color.fromARGB(169, 55, 180, 253))
+                      color: Color.fromARGB(169, 55, 180, 253),
+                    ),
+                  ),
                 ]);
               }),
             ),
@@ -83,9 +247,50 @@ class MapPage extends StatelessWidget {
                 return Column(children: <Widget>[
                   Text('Gaiman-Chubut',
                       style: TextStyle(color: Colors.black, fontSize: 10)),
-                  Icon(Icons.sensors,
+                  GestureDetector(
+                    onTap: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('FrutosVirch'),
+                          content: Container(
+                              height: 100,
+                              child: Column(children: <Widget>[
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Estación Glyn 3',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold))),
+                                Divider(),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Id Estación: 167442')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Latitud: -43.313225')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Longitud: -65.47385')),
+                                Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text('Elevación: 50.649'))
+                              ])),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.sensors,
                       size: constraint.biggest.height / 2,
-                      color: Color.fromARGB(169, 55, 180, 253))
+                      color: Color.fromARGB(169, 55, 180, 253),
+                    ),
+                  ),
                 ]);
               }),
             ),
