@@ -5,7 +5,7 @@ import 'notificationsPage.dart';
 class StationListPage extends StatefulWidget {
   const StationListPage({super.key});
 
-@override
+  @override
   State<StationListPage> createState() => _StationListPageState();
 }
 
@@ -15,10 +15,12 @@ class _StationListPageState extends State<StationListPage> {
   bool showLeading = false;
   bool showTrailing = false;
   double groupAlignment = -1.0;
+
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,20 +90,45 @@ class _StationListPageState extends State<StationListPage> {
             ],
           ),
           const VerticalDivider(thickness: 1, width: 1),
-          Expanded(child: ListView(
-        children: const [
-          StationItem(name: 'Estación-123501'),
-          StationItem(name: 'Estación-167442'),
-          StationItem(name: 'Estación-138225'),
-          StationItem(name: 'Estación-145839'),
-          StationItem(name: 'Estación-145862'),
-        ],
-      ),
-    ),
+          Expanded(
+            child: ListView(
+              children: const [
+                StationItem(name: 'Estación-123501'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                StationItem(name: 'Estación-167442'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                StationItem(name: 'Estación-138225'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                StationItem(name: 'Estación-145839'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                StationItem(name: 'Estación-145862'),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
-
   }
 }
 
@@ -116,7 +143,9 @@ class StationItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StationDetailPage(stationName: name)), // Pasar pt como argumento
+          MaterialPageRoute(
+              builder: (context) => StationDetailPage(
+                  stationName: name)), // Pasar pt como argumento
         );
       },
       child: ListTile(title: Text(name)),

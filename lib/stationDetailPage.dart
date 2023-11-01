@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'notificationsPage.dart';
+
 class StationDetailPage extends StatefulWidget {
   const StationDetailPage({super.key, required this.stationName});
   final String stationName;
@@ -18,6 +19,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
   bool showLeading = false;
   bool showTrailing = false;
   double groupAlignment = -1.0;
+
   @override
   void initState() {
     super.initState();
@@ -69,7 +71,6 @@ class _StationDetailPageState extends State<StationDetailPage> {
                   )
                 : const SizedBox(),
             destinations: const <NavigationRailDestination>[
-              
               NavigationRailDestination(
                 icon: Icon(Icons.sensors_outlined),
                 selectedIcon: Icon(Icons.sensors),
@@ -124,7 +125,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
                           return Icon(Icons.device_thermostat,
-                              size: constraint.biggest.height / 3);
+                              size: constraint.biggest.height / 3, color: const Color.fromARGB(169, 244, 67, 54));
                         }),
                         ListenerWidget(
                             stationName: widget.stationName, parameter: 'temp'),
@@ -161,7 +162,8 @@ class _StationDetailPageState extends State<StationDetailPage> {
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
                           return Icon(Icons.air,
-                              size: constraint.biggest.height / 3);
+                              size: constraint.biggest.height / 3, color: Colors.blue);
+                              
                         }),
                         ListenerWidget(
                             stationName: widget.stationName,
@@ -199,7 +201,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
                           return Icon(Icons.water_drop_outlined,
-                              size: constraint.biggest.height / 3);
+                              size: constraint.biggest.height / 3, color: const Color.fromARGB(255, 15, 128, 220));
                         }),
                         ListenerWidget(
                             stationName: widget.stationName,
@@ -237,7 +239,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
                           return Icon(Icons.vertical_align_bottom,
-                              size: constraint.biggest.height / 3);
+                              size: constraint.biggest.height / 3, color: Color.fromARGB(255, 137, 98, 173));
                         }),
                         ListenerWidget(
                             stationName: widget.stationName,
@@ -275,7 +277,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
                           return Icon(Icons.water_damage,
-                              size: constraint.biggest.height / 3);
+                              size: constraint.biggest.height / 3, color: Color.fromARGB(255, 142, 64, 12));
                         }),
                         ListenerWidget(
                             stationName: widget.stationName, parameter: 'hum'),
@@ -312,7 +314,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                       children: <Widget>[
                         LayoutBuilder(builder: (context, constraint) {
                           return Icon(Icons.dew_point,
-                              size: constraint.biggest.height / 3);
+                              size: constraint.biggest.height / 3, color: Colors.blue);
                         }),
                         ListenerWidget(
                             stationName: widget.stationName,
@@ -348,10 +350,10 @@ class ListenerWidget extends StatefulWidget {
 
 class _ListenerWidgetState extends State<ListenerWidget> {
   MqttHandler mqttHandler = MqttHandler();
-
   @override
   void initState() {
     super.initState();
+
     mqttHandler.connect(widget.stationName, widget.parameter);
   }
 
@@ -411,12 +413,14 @@ class _MyWidgetState extends State<MyWidget> {
     return FutureBuilder(
         future: getUltMsj(widget.stationName, widget.parameter),
         builder: (context, AsyncSnapshot<String> snapshot) {
-          return Text(
-            snapshot.data!,
-            style: const TextStyle(color: Colors.black, fontSize: 18),
-          );
+         if (snapshot.data!.isNotEmpty) {
+            return Text(
+              snapshot.data!,
+              style: const TextStyle(color: Colors.black, fontSize: 18),
+            );
+          } else {
+            return SizedBox(width: 16, height: 16, child: CircularProgressIndicator());
+          }
         });
   }
 }
-
-
