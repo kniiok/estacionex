@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
+import 'package:sensor_flutter_app/mapPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'notificationsPage.dart';
 import 'package:flutter_titled_container/flutter_titled_container.dart';
@@ -37,7 +38,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
+                MaterialPageRoute(builder: (context) => MapPage()),
               );
             },
           ),

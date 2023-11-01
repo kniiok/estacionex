@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_flutter_app/mapPage.dart';
 import 'package:sensor_flutter_app/stationDetailPage.dart';
 import 'notificationsPage.dart';
 
@@ -45,7 +46,12 @@ class _StationListPageState extends State<StationListPage> {
             groupAlignment: groupAlignment,
             onDestinationSelected: (int index) {
               setState(() {
-                _selectedIndex = index;
+                if(index==1){
+                   Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MapPage()),
+                      );
+                }
               });
             },
             labelType: labelType,
@@ -53,7 +59,7 @@ class _StationListPageState extends State<StationListPage> {
                 ? FloatingActionButton(
                     elevation: 0,
                     onPressed: () {
-                      // Add your onPressed code here!
+                      
                     },
                     child: const Icon(Icons.add),
                   )
@@ -61,7 +67,7 @@ class _StationListPageState extends State<StationListPage> {
             trailing: showTrailing
                 ? IconButton(
                     onPressed: () {
-                      // Add your onPressed code here!
+                    
                     },
                     icon: const Icon(Icons.more_horiz_rounded),
                   )
