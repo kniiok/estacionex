@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:sensor_flutter_app/page_header.dart';
 import 'package:sensor_flutter_app/page_heading.dart';
 import 'package:sensor_flutter_app/stationListPage.dart';
-import 'package:provider/provider.dart';
 import 'package:sensor_flutter_app/model_theme.dart';
 
 class LoginPage extends StatefulWidget {
@@ -96,48 +95,51 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Inicio de Sesión'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            PageHeader(),
-            PageHeading(title: 'Estaciones INTA'),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: TextField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Nombre de Usuario',
-                  border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              PageHeader(),
+              PageHeading(title: 'Estaciones INTA'),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Nombre de Usuario',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Contraseña',
-                  border: OutlineInputBorder(),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Contraseña',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
                 ),
-                obscureText: true,
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Llama a la función para verificar las credenciales
-                attemptLogin(context);
-              },
-              child: Text('Iniciar Sesión'),
-            ),
-            isLoading ? CircularProgressIndicator() : Text('')
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  // Llama a la función para verificar las credenciales
+                  attemptLogin(context);
+                },
+                child: Text('Iniciar Sesión'),
+              ),
+              isLoading ? CircularProgressIndicator() : Text('')
+            ],
+          ),
         ),
       ),
     );
