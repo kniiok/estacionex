@@ -27,12 +27,12 @@ class ConfigPage extends StatelessWidget {
         body: SettingsList(
           sections: [
             SettingsSection(
-              title: Text('Common'),
+              title: Text('Apariencia'),
               tiles: <SettingsTile>[
              
                 SettingsTile.navigation(
                     title: const Text('Dark Mode'),
-                    value: IconButton(
+                    value: Row(children: [Text('Activar/Desactivar'),IconButton(
                         icon: Icon(themeNotifier.isDark
                             ? Icons.nightlight_round
                             : Icons.wb_sunny),
@@ -40,7 +40,7 @@ class ConfigPage extends StatelessWidget {
                           themeNotifier.isDark
                               ? themeNotifier.isDark = false
                               : themeNotifier.isDark = true;
-                        }))
+                        })]))
               ],
             ),
           ],
