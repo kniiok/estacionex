@@ -193,7 +193,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                 ),
                 TitledContainer(
                   titleColor: Colors.white,
-                  title: 'Última lluvia',
+                  title: 'Precipitación',
                   textAlign: TextAlignTitledContainer.Center,
                   fontSize: 14.0,
                   backgroundColor: Color.fromARGB(255, 108, 144, 174),
