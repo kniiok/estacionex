@@ -102,44 +102,46 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('Inicio de Sesión'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            PageHeader(),
-            PageHeading(title: 'Estaciones INTA'),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: TextField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Nombre de Usuario',
-                  border: OutlineInputBorder(),
+      body: Column(children: [
+        // const PageHeader(),
+        // const PageHeading(title: 'Estaciones INTA'),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Nombre de Usuario',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Contraseña',
-                  border: OutlineInputBorder(),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Contraseña',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
                 ),
-                obscureText: true,
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Llama a la función para verificar las credenciales
-                attemptLogin(context);
-              },
-              child: Text('Iniciar Sesión'),
-            ),
-            isLoading ? CircularProgressIndicator() : Text('')
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  // Llama a la función para verificar las credenciales
+                  attemptLogin(context);
+                },
+                child: Text('Iniciar Sesión'),
+              ),
+              isLoading ? CircularProgressIndicator() : Text('')
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }
