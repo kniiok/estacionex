@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
 import 'package:sensor_flutter_app/configPage.dart';
 import 'package:sensor_flutter_app/mapPage.dart';
+import 'package:sensor_flutter_app/newAlertPage.dart';
 import 'package:sensor_flutter_app/userPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'notificationsPage.dart';
@@ -394,7 +395,10 @@ class _StationDetailPageState extends State<StationDetailPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() => ''),
+        onPressed: () =>  Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NewAlertPage()),
+                      ),
         tooltip: 'Nueva Alerta',
         child: const Icon(Icons.circle_notifications),
       ),
