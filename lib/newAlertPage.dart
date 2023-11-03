@@ -5,142 +5,107 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:sensor_flutter_app/page_header.dart';
 import 'package:sensor_flutter_app/stationListPage.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class NewAlertPage extends StatefulWidget {
+  const NewAlertPage(this.stationName, {super.key});
+  final String stationName;
   @override
   _NewAlertPageState createState() => _NewAlertPageState();
 }
 
 class _NewAlertPageState extends State<NewAlertPage> {
+  final apiUrl = Uri.parse("http://150.230.80.1:18083/api/v5/rules");
   final TextEditingController windController = TextEditingController();
   final TextEditingController tempController = TextEditingController();
+  final username = '0864e2a5beed02b6';
+  final password = 'QHiMVaBAiortnOrw33hk0hHxLqlAwlt1zzb6hud0USJ';
+
   bool isLoading = false;
 
-  Future<void> attemptLogin(BuildContext context) async {
-    setState(() {
-      isLoading = true;
-    });
-    final String username = windController.text;
-    final String password = tempController.text;
-
-    final client = MqttServerClient('150.230.80.1', '1883');
-    client.logging(on: false);
-
-    final connMess = MqttConnectMessage()
-        .withClientIdentifier('dart_client')
-        .withWillTopic('test_topic')
-        .withWillMessage('My Will message')
-        .startClean()
-        .withWillQos(MqttQos.atLeastOnce)
-        .authenticateAs(username, password);
-
-    client.connectionMessage = connMess;
-
-    try {
-      await client.connect();
-      setState(() {
-        isLoading = false;
-      });
-      // La conexión fue exitosa, puedes redirigir al usuario a la página deseada
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => StationListPage()),
-      );
-    } on NoConnectionException catch (e) {
-      print('Client exception: $e');
-      client.disconnect();
-      setState(() {
-        isLoading = false;
-      });
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Error de autenticación"),
-            content: Text("Usuario o contraseña incorrectos."),
-            actions: <Widget>[
-              TextButton(
-                child: Text("Aceptar"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
+  Future<void> sendPostRequest(stationName) async {
+    var response = await http.post(apiUrl,
+        headers: {
+          "Content-Type": "application/json",
+          'username': username,
+          'password': password
         },
+        body: jsonEncode({
+          "name": "Rule-$stationName-t:$tempController-w:$windController",
+          "sql":
+              "SELECT payload FROM \"$stationName\" WHERE payload.data.temp < $tempController AND payload.data.wind_speed_hi_last_2_min > $windController",
+          "actions": [
+            "webhook:my_webhook",
+            {
+              "args": {
+                "payload":
+                    "{\${payload.data.temp}, \${payload.data.wind_speed_hi_last_2_min}}",
+                "topic": "Alerta-$stationName"
+              },
+              "function": "republish"
+            },
+            {"function": "console"}
+          ],
+          "enable": true,
+          "description": "Some description",
+          "metadata": {}
+        }));
+    print(response);
+    if (response.statusCode == 201) {
+      const SnackBar(
+        content: Text("Post created successfully!"),
       );
-    } on SocketException catch (e) {
-      print('Socket exception: $e');
-      client.disconnect();
-      // Muestra un mensaje de error al usuario u otra acción en caso de fallo
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("Error de conexión"),
-              content: Text("No se pudo conectar al servidor."),
-              actions: <Widget>[
-                TextButton(
-                  child: Text("Aceptar"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          });
+    } else {
+      const SnackBar(
+        content: Text("Failed to create post!"),
+      );
     }
   }
- 
- 
+
   @override
   Widget build(BuildContext context) {
-  
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Nueva Alerta'),
-          actions: [
-            
-          ],
-        ),
-        body: Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Nueva Alerta'),
+        actions: [],
+      ),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             new PageHeader(),
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: TextField(
                 controller: windController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Velocidad del viento >',
                   border: OutlineInputBorder(),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: TextField(
                 controller: tempController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Temperatura <',
                   border: OutlineInputBorder(),
                 ),
-                obscureText: true,
               ),
             ),
             ElevatedButton(
               onPressed: () {
                 // Llama a la función para verificar las credenciales
-                
+                //print(widget.stationName);
+                sendPostRequest(widget.stationName);
               },
-              child: Text('Crear'),
+              child: const Text('Crear'),
             ),
-            
           ],
         ),
       ),
-      );
-  
+    );
   }
 }

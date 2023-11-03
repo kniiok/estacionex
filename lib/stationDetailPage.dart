@@ -397,7 +397,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () =>  Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => NewAlertPage()),
+                        MaterialPageRoute(builder: (context) => NewAlertPage(widget.stationName)),
                       ),
         tooltip: 'Nueva Alerta',
         child: const Icon(Icons.circle_notifications),

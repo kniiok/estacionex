@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:sensor_flutter_app/page_header.dart';
 import 'package:sensor_flutter_app/page_heading.dart';
 import 'package:sensor_flutter_app/stationListPage.dart';
+import 'package:provider/provider.dart';
 import 'package:sensor_flutter_app/model_theme.dart';
 
 class LoginPage extends StatefulWidget {
@@ -95,20 +96,19 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Inicio de Sesión'),
       ),
-      body: SingleChildScrollView(
-        child: Center(
+      body: Column(children: [
+        // const PageHeader(),
+        // const PageHeading(title: 'Estaciones INTA'),
+        Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              PageHeader(),
-              PageHeading(title: 'Estaciones INTA'),
               Padding(
                 padding: EdgeInsets.all(16.0),
                 child: TextField(
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-      ),
+      ]),
     );
   }
 }
