@@ -19,30 +19,36 @@ class _NewAlertPageState extends State<NewAlertPage> {
   final apiUrl = Uri.parse("http://150.230.80.1:18083/api/v5/rules");
   final TextEditingController windController = TextEditingController();
   final TextEditingController tempController = TextEditingController();
-  final username = '0864e2a5beed02b6';
-  final password = 'QHiMVaBAiortnOrw33hk0hHxLqlAwlt1zzb6hud0USJ';
 
   bool isLoading = false;
 
   Future<void> sendPostRequest(stationName) async {
+    final username = '0864e2a5beed02b6';
+    final password = 'QHiMVaBAiortnOrw33hk0hHxLqlAwlt1zzb6hud0USJ';
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    print(tempController.text);
+    var temp=tempController.text;
+    var wind=windController.text;
     var response = await http.post(apiUrl,
         headers: {
           "Content-Type": "application/json",
-          'username': username,
-          'password': password
+          "Authorization": basicAuth
         },
         body: jsonEncode({
-          "name": "Rule-$stationName-t:$tempController-w:$windController",
+          "name": "Rule-$stationName-t:$temp-w:$wind",
           "sql":
-              "SELECT payload FROM \"$stationName\" WHERE payload.data.temp < $tempController AND payload.data.wind_speed_hi_last_2_min > $windController",
+              "SELECT * FROM \"$stationName\" WHERE payload.data.temp < $temp AND payload.data.wind_speed_hi_last_2_min > $wind",
           "actions": [
             "webhook:my_webhook",
             {
               "args": {
                 "payload":
                     "{\${payload.data.temp}, \${payload.data.wind_speed_hi_last_2_min}}",
-                "topic": "Alerta-$stationName"
-              },
+                "topic": "Alertas",
+                "qos" : 2,
+                "retain" : "true"
+               },
               "function": "republish"
             },
             {"function": "console"}
@@ -51,13 +57,13 @@ class _NewAlertPageState extends State<NewAlertPage> {
           "description": "Some description",
           "metadata": {}
         }));
-    print(response);
+    print(response.statusCode);
     if (response.statusCode == 201) {
-      const SnackBar(
+      const AlertDialog(
         content: Text("Post created successfully!"),
       );
     } else {
-      const SnackBar(
+      const AlertDialog(
         content: Text("Failed to create post!"),
       );
     }

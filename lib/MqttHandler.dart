@@ -30,7 +30,7 @@ class MqttHandler with ChangeNotifier {
         .withWillMessage('Will message')
         .startClean()
         .withWillQos(MqttQos.atLeastOnce)
-        .authenticateAs('Tomas', '1234');
+        .authenticateAs('Facundo', '1234');
 
     print('Connecting....');
 
@@ -68,26 +68,30 @@ class MqttHandler with ChangeNotifier {
     //     sensor = 'Sensor-558414';
     //     break;
     // }
+    if (stationId == "Alertas") {
+      client.subscribe('Alertas', MqttQos.exactlyOnce);
+    } else {
+      final topic = '$stationId/$parameter';
+      print('Subscribing to the $topic topic');
+      client.subscribe(topic, MqttQos.atMostOnce);
 
-    final topic = '$stationId/$parameter';
-    print('Subscribing to the $topic topic');
-    client.subscribe(topic, MqttQos.atMostOnce);
+      client.updates!
+          .listen((List<MqttReceivedMessage<MqttMessage?>>? c) async {
+        final recMess = c![0].payload as MqttPublishMessage;
+        final pt =
+            MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
-    client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) async {
-      final recMess = c![0].payload as MqttPublishMessage;
-      final pt =
-          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-
-      data.value = pt;
-      // obtain shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      // set value
-      await prefs.setString('ultMsj-$stationId-$parameter', data.value);
-      //print('Set-ultMsj-$stationId-$parameter');
-      notifyListeners();
-      print('New data arrived: topic is <${c[0].topic}>, payload is $pt');
-      print('');
-    });
+        data.value = pt;
+        // obtain shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        // set value
+        await prefs.setString('ultMsj-$stationId-$parameter', data.value);
+        //print('Set-ultMsj-$stationId-$parameter');
+        notifyListeners();
+        print('New data arrived: topic is <${c[0].topic}>, payload is $pt');
+        print('');
+      });
+    }
 
     return client;
   }
