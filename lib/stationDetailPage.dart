@@ -31,6 +31,8 @@ class _StationDetailPageState extends State<StationDetailPage> {
     super.initState();
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,17 +57,17 @@ class _StationDetailPageState extends State<StationDetailPage> {
             groupAlignment: groupAlignment,
             onDestinationSelected: (int index) {
               setState(() {
-                 if(index==1){
-                   Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ConfigPage()),
-                      );
+                if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ConfigPage()),
+                  );
                 }
-                if(index==2){
-                   Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => UserPage()),
-                      );
+                if (index == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserPage()),
+                  );
                 }
               });
             },
@@ -396,15 +398,14 @@ class _StationDetailPageState extends State<StationDetailPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>  Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => NewAlertPage(widget.stationName)),
-                      ),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NewAlertPage(widget.stationName)),
+        ),
         tooltip: 'Nueva Alerta',
         child: const Icon(Icons.circle_notifications),
       ),
     );
   }
 }
-
-

@@ -8,10 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MqttHandler with ChangeNotifier {
   final ValueNotifier<String> data = ValueNotifier<String>("");
   late MqttServerClient client;
-
+  
+  
   Future<Object> connect(stationId, parameter) async {
     client = MqttServerClient.withPort(
-        '150.230.80.1', 'station:$stationId-parameter:$parameter', 1883);
+        '150.230.80.1', 'station:$stationId', 1883);
     client.logging(on: true);
     client.onConnected = onConnected;
     client.onDisconnected = onDisconnected;
@@ -50,27 +51,8 @@ class MqttHandler with ChangeNotifier {
       client.disconnect();
       return -1;
     }
-    // var sensor = '';
-    // switch (stationId) {
-    //   case 'Estación-123501':
-    //     sensor = 'Sensor-464200';
-    //     break;
-    //   case 'Estación-167442':
-    //     sensor = 'Sensor-650015';
-    //     break;
-    //   case 'Estación-138225':
-    //     sensor = 'Sensor-525327';
-    //     break;
-    //   case 'Estación-145839':
-    //     sensor = 'Sensor-653824';
-    //     break;
-    //   case 'Estación-145862':
-    //     sensor = 'Sensor-558414';
-    //     break;
-    // }
-    if (stationId == "Alertas") {
-      client.subscribe('Alertas', MqttQos.exactlyOnce);
-    } else {
+  
+
       final topic = '$stationId/$parameter';
       print('Subscribing to the $topic topic');
       client.subscribe(topic, MqttQos.atMostOnce);
@@ -91,7 +73,7 @@ class MqttHandler with ChangeNotifier {
         print('New data arrived: topic is <${c[0].topic}>, payload is $pt');
         print('');
       });
-    }
+    
 
     return client;
   }

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:sensor_flutter_app/page_header.dart';
+import 'package:sensor_flutter_app/stationDetailPage.dart';
 import 'package:sensor_flutter_app/stationListPage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
+
 
 class NewAlertPage extends StatefulWidget {
   const NewAlertPage(this.stationName, {super.key});
@@ -27,7 +30,7 @@ class _NewAlertPageState extends State<NewAlertPage> {
     final password = 'QHiMVaBAiortnOrw33hk0hHxLqlAwlt1zzb6hud0USJ';
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
-    print(tempController.text);
+    
     var temp=tempController.text;
     var wind=windController.text;
     var response = await http.post(apiUrl,
@@ -40,8 +43,9 @@ class _NewAlertPageState extends State<NewAlertPage> {
           "sql":
               "SELECT * FROM \"$stationName\" WHERE payload.data.temp < $temp AND payload.data.wind_speed_hi_last_2_min > $wind",
           "actions": [
-            "webhook:my_webhook",
+            "webhook:alarm",
             {
+              
               "args": {
                 "payload":
                     "{\${payload.data.temp}, \${payload.data.wind_speed_hi_last_2_min}}",
@@ -49,22 +53,45 @@ class _NewAlertPageState extends State<NewAlertPage> {
                 "qos" : 2,
                 "retain" : "true"
                },
-              "function": "republish"
+              "function": "republish",
+             
             },
-            {"function": "console"}
+            
           ],
           "enable": true,
           "description": "Some description",
           "metadata": {}
         }));
-    print(response.statusCode);
+    //print(response.statusCode);
     if (response.statusCode == 201) {
-      const AlertDialog(
-        content: Text("Post created successfully!"),
+     showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Alerta Creada Exitosamente!'),
+          content: Text('Estación: $stationName \nViento > $wind \nTemperatura < $temp'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
       );
+      windController.text='';
+      tempController.text='';
     } else {
-      const AlertDialog(
-        content: Text("Failed to create post!"),
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('No se pudo crear la Alerta!'),
+          content: const Text('Intentelo nuevamente'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
       );
     }
   }
@@ -115,3 +142,4 @@ class _NewAlertPageState extends State<NewAlertPage> {
     );
   }
 }
+
