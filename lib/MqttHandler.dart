@@ -8,10 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MqttHandler with ChangeNotifier {
   final ValueNotifier<String> data = ValueNotifier<String>("");
   late MqttServerClient client;
-
+  
+  
   Future<Object> connect(stationId, parameter) async {
     client = MqttServerClient.withPort(
-        '150.230.80.1', 'station:$stationId-parameter:$parameter', 1883);
+        '150.230.80.1', 'station:$stationId', 1883);
     client.logging(on: true);
     client.onConnected = onConnected;
     client.onDisconnected = onDisconnected;
@@ -30,7 +31,7 @@ class MqttHandler with ChangeNotifier {
         .withWillMessage('Will message')
         .startClean()
         .withWillQos(MqttQos.atLeastOnce)
-        .authenticateAs('Tomas', '1234');
+        .authenticateAs('Facundo', '1234');
 
     print('Connecting....');
 
@@ -50,44 +51,29 @@ class MqttHandler with ChangeNotifier {
       client.disconnect();
       return -1;
     }
-    // var sensor = '';
-    // switch (stationId) {
-    //   case 'Estación-123501':
-    //     sensor = 'Sensor-464200';
-    //     break;
-    //   case 'Estación-167442':
-    //     sensor = 'Sensor-650015';
-    //     break;
-    //   case 'Estación-138225':
-    //     sensor = 'Sensor-525327';
-    //     break;
-    //   case 'Estación-145839':
-    //     sensor = 'Sensor-653824';
-    //     break;
-    //   case 'Estación-145862':
-    //     sensor = 'Sensor-558414';
-    //     break;
-    // }
+  
 
-    final topic = '$stationId/$parameter';
-    print('Subscribing to the $topic topic');
-    client.subscribe(topic, MqttQos.atMostOnce);
+      final topic = '$stationId/$parameter';
+      print('Subscribing to the $topic topic');
+      client.subscribe(topic, MqttQos.atMostOnce);
 
-    client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) async {
-      final recMess = c![0].payload as MqttPublishMessage;
-      final pt =
-          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      client.updates!
+          .listen((List<MqttReceivedMessage<MqttMessage?>>? c) async {
+        final recMess = c![0].payload as MqttPublishMessage;
+        final pt =
+            MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
-      data.value = pt;
-      // obtain shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      // set value
-      await prefs.setString('ultMsj-$stationId-$parameter', data.value);
-      //print('Set-ultMsj-$stationId-$parameter');
-      notifyListeners();
-      print('New data arrived: topic is <${c[0].topic}>, payload is $pt');
-      print('');
-    });
+        data.value = pt;
+        // obtain shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        // set value
+        await prefs.setString('ultMsj-$stationId-$parameter', data.value);
+        //print('Set-ultMsj-$stationId-$parameter');
+        notifyListeners();
+        print('New data arrived: topic is <${c[0].topic}>, payload is $pt');
+        print('');
+      });
+    
 
     return client;
   }

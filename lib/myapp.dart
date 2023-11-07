@@ -10,6 +10,7 @@ import 'package:sensor_flutter_app/stationListPage.dart';
 import 'package:provider/provider.dart';
 import 'package:sensor_flutter_app/model_theme.dart';
 
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -40,11 +41,15 @@ class _LoginPageState extends State<LoginPage> {
 
     client.connectionMessage = connMess;
 
+ 
+
     try {
-      await client.connect();
+      
+      client.connect();
       setState(() {
         isLoading = false;
       });
+
       // La conexión fue exitosa, puedes redirigir al usuario a la página deseada
       Navigator.push(
         context,
@@ -103,8 +108,8 @@ class _LoginPageState extends State<LoginPage> {
         title: Text('Inicio de Sesión'),
       ),
       body: Column(children: [
-        // const PageHeader(),
-        // const PageHeading(title: 'Estaciones INTA'),
+        const PageHeader(),
+        const PageHeading(title: 'Estaciones INTA'),
         Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
