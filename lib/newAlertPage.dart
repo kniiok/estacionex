@@ -37,13 +37,15 @@ class _NewAlertPageState extends State<NewAlertPage> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     
     var query = "SELECT * FROM \"$stationName\" WHERE";
-   
+    var payload = '{"topic": $stationName, "data": ';
+
     if(windMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
       query += " payload.data.wind_speed_hi_last_2_min <= "+windMaxController.text; 
       }else{
       query += " AND payload.data.wind_speed_hi_last_2_min <= "+windMaxController.text;  
       }
+      
     }
     if(windMinController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
@@ -51,6 +53,9 @@ class _NewAlertPageState extends State<NewAlertPage> {
       }else{
       query += " AND payload.data.wind_speed_hi_last_2_min >= "+windMinController.text;  
       }
+    }
+    if(windMaxController.text.isNotEmpty || windMinController.text.isNotEmpty){
+      payload += '"wind_speed_hi_last_2_min": \${payload.data.wind_speed_hi_last_2_min}, ';
     }
     if(tempMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
@@ -66,6 +71,9 @@ class _NewAlertPageState extends State<NewAlertPage> {
       query += " AND payload.data.temp >= "+tempMinController.text;  
       }
     }
+     if(tempMaxController.text.isNotEmpty || tempMinController.text.isNotEmpty){
+      payload += '"temp": \${payload.data.temp}, ';
+    }
     if(humMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
       query += " payload.data.hum <= "+humMaxController.text; 
@@ -79,6 +87,9 @@ class _NewAlertPageState extends State<NewAlertPage> {
       }else{
       query += " AND payload.data.hum >= "+humMinController.text;  
       }
+    }
+     if(humMaxController.text.isNotEmpty || humMinController.text.isNotEmpty){
+      payload += '"hum": \${payload.data.hum}, ';
     }
     if(dewMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
@@ -94,7 +105,11 @@ class _NewAlertPageState extends State<NewAlertPage> {
       query += " AND payload.data.dew_point >= "+dewMinController.text;  
       }
     }
-    
+     if(dewMaxController.text.isNotEmpty || dewMinController.text.isNotEmpty){
+      payload += '"dew_point": \${payload.data.dew_point}, ';
+    }
+    payload = payload.substring(0, payload.length - 2);
+    payload += '}';
     var response = await http.post(apiUrl,
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +124,7 @@ class _NewAlertPageState extends State<NewAlertPage> {
             {
               "args": {
                 "payload":
-                    '\${payload}',
+                    payload,
                 "topic": "Alertas",
                 "qos": 2,
                 "retain": "true"
