@@ -7,7 +7,6 @@ class UserPage extends StatefulWidget {
   @override
   State<UserPage> createState() => _UserPageState();
 }
-
 class _UserPageState extends State<UserPage> {
   List<User> users = [];
 
@@ -17,9 +16,6 @@ class _UserPageState extends State<UserPage> {
     Database().openConnection();
    
   }
-
-
-  
 
   @override
   Widget build(BuildContext context) {
