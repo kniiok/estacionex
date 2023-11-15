@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +14,7 @@ class ListenerWidget extends StatefulWidget {
 
 class _ListenerWidgetState extends State<ListenerWidget> {
   MqttHandler mqttHandler = MqttHandler();
-  
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +45,7 @@ class _ListenerWidgetState extends State<ListenerWidget> {
     );
   }
 }
+
 class MyWidget extends StatefulWidget {
   const MyWidget(
       {super.key, required this.stationName, required this.parameter});
@@ -79,10 +79,18 @@ class _MyWidgetState extends State<MyWidget> {
         future: getUltMsj(widget.stationName, widget.parameter),
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.data!.isNotEmpty) {
-            return Text(
-              snapshot.data!,
-              style: const TextStyle(color: Colors.black, fontSize: 18),
-            );
+            return Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    snapshot.data!,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                    ),
+                  )
+                ]);
           } else {
             return SizedBox(
                 width: 16, height: 16, child: CircularProgressIndicator());
