@@ -37,7 +37,7 @@ class _NewAlertPageState extends State<NewAlertPage> {
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     
     var query = "SELECT * FROM \"$stationName\" WHERE";
-    var payload = '{"topic": $stationName, "data": ';
+    String payload = '{"topic": "$stationName", "data": {';
 
     if(windMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
@@ -109,7 +109,7 @@ class _NewAlertPageState extends State<NewAlertPage> {
       payload += '"dew_point": \${payload.data.dew_point}, ';
     }
     payload = payload.substring(0, payload.length - 2);
-    payload += '}';
+    payload += '}}';
     var response = await http.post(apiUrl,
         headers: {
           "Content-Type": "application/json",
@@ -127,7 +127,7 @@ class _NewAlertPageState extends State<NewAlertPage> {
                     payload,
                 "topic": "Alertas",
                 "qos": 2,
-                "retain": "true"
+                "retain": "false"
               },
               "function": "republish",
             },

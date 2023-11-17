@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sensor_flutter_app/MqttHandler.dart';
+import 'package:sensor_flutter_app/MqttHandlerAlarm.dart';
 import 'package:sensor_flutter_app/configPage.dart';
 import 'package:sensor_flutter_app/listenerMqtt.dart';
 import 'package:sensor_flutter_app/mapPage.dart';
@@ -25,10 +26,11 @@ class _StationDetailPageState extends State<StationDetailPage> {
   bool showLeading = false;
   bool showTrailing = false;
   double groupAlignment = -1.0;
-
+  
   @override
   void initState() {
     super.initState();
+    
   }
 
  
@@ -37,17 +39,10 @@ class _StationDetailPageState extends State<StationDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.stationName),
+        title: Text(widget.stationName, style: TextStyle(fontSize:16)),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
-              );
-            },
-          ),
+         
+          
         ],
       ),
       body: Row(

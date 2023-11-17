@@ -24,15 +24,7 @@ class _UserPageState extends State<UserPage> {
       appBar: AppBar(
         title: Text('Usuario'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
-              );
-            },
-          ),
+        
         ],
       ),
       body: Column(

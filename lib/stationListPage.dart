@@ -4,12 +4,14 @@ import 'package:sensor_flutter_app/mapPage.dart';
 import 'package:sensor_flutter_app/stationDetailPage.dart';
 import 'package:sensor_flutter_app/userPage.dart';
 import 'notificationsPage.dart';
+import 'package:sensor_flutter_app/MqttHandlerAlarm.dart';
 
 class StationListPage extends StatefulWidget {
   const StationListPage({super.key});
 
   @override
   State<StationListPage> createState() => _StationListPageState();
+
 }
 
 class _StationListPageState extends State<StationListPage> {
@@ -18,29 +20,60 @@ class _StationListPageState extends State<StationListPage> {
   bool showLeading = false;
   bool showTrailing = false;
   double groupAlignment = -1.0;
-
+  MqttHandlerAlarm mqttHandler = MqttHandlerAlarm();
+  int counter=0;
   @override
   void initState() {
     super.initState();
+    mqttHandler.connect();
   }
-  
+
+  void incrementCounter() {
+    setState(() {
+      counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista de Estaciones'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
-              );
-            },
+      appBar: AppBar(title: const Text('Lista de Estaciones'), actions: [
+        Stack(
+    children: [
+        IconButton(
+          icon: const Icon(Icons.notifications),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationsPage()),
+            );
+          },
+        ),
+        if(counter!=0)
+        Container(
+          width: 30,
+          height: 30,
+          alignment: Alignment.topRight,
+          margin: EdgeInsets.only(top: 5, left:8),
+          child: Container(
+            width: 15,
+            height: 15,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xffc32c37),
+                border: Border.all(color: Colors.white, width: 1)),
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Center(
+                child: Text(
+                  counter.toString(),
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
           ),
-        ],
-      ),
+        )]),
+      ]),
       body: Row(
         children: <Widget>[
           NavigationRail(
@@ -48,23 +81,23 @@ class _StationListPageState extends State<StationListPage> {
             groupAlignment: groupAlignment,
             onDestinationSelected: (int index) {
               setState(() {
-                if(index==1){
-                   Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MapPage()),
-                      );
+                if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MapPage()),
+                  );
                 }
-                if(index==2){
-                   Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ConfigPage()),
-                      );
+                if (index == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ConfigPage()),
+                  );
                 }
-                if(index==3){
-                   Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => UserPage()),
-                      );
+                if (index == 3) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserPage()),
+                  );
                 }
               });
             },
@@ -72,17 +105,13 @@ class _StationListPageState extends State<StationListPage> {
             leading: showLeading
                 ? FloatingActionButton(
                     elevation: 0,
-                    onPressed: () {
-                      
-                    },
+                    onPressed: () {},
                     child: const Icon(Icons.add),
                   )
                 : const SizedBox(),
             trailing: showTrailing
                 ? IconButton(
-                    onPressed: () {
-                    
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.more_horiz_rounded),
                   )
                 : const SizedBox(),
@@ -121,14 +150,14 @@ class _StationListPageState extends State<StationListPage> {
                   color: Colors.grey,
                 ),
                 Text('Gaiman-Chubut/(Cielos del Sur)'),
-                 StationItem(name: 'Estación-123501-Sensor-525321'),
+                StationItem(name: 'Estación-123501-Sensor-525321'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
                 Text('Gaiman-Chubut/(Cielos del Sur)'),
-                 StationItem(name: 'Estación-123501-Sensor-525322'),
+                StationItem(name: 'Estación-123501-Sensor-525322'),
                 Divider(
                   height: 0,
                   thickness: 1,
@@ -189,29 +218,29 @@ class _StationListPageState extends State<StationListPage> {
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
-                ),        
-                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                ),
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),
                 StationItem(name: 'Estación-145839-Sensor-557448'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),
                 StationItem(name: 'Estación-145839-Sensor-653825'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),
                 StationItem(name: 'Estación-145839-Sensor-653824'),
                 Divider(
                   height: 0,
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),        
+                Text('Los Antiguos-Santa Cruz/(Villa Favaloro)'),
                 StationItem(name: 'Estación-145839-Sensor-653826'),
                 Divider(
                   height: 0,
@@ -232,7 +261,7 @@ class _StationListPageState extends State<StationListPage> {
                   thickness: 1,
                   color: Colors.grey,
                 ),
-                 Text('Trelew-Chubut/(Las Santinas VIRCH)'),
+                Text('Trelew-Chubut/(Las Santinas VIRCH)'),
                 StationItem(name: 'Estación-145862-Sensor-653141'),
                 Divider(
                   height: 0,
