@@ -13,15 +13,7 @@ class ConfigPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Ajustes'),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NotificationsPage()),
-                );
-              },
-            ),
+           
           ],
         ),
         body: SettingsList(
