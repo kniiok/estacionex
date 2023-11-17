@@ -21,15 +21,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
         appBar: AppBar(
           title: Text('Mapa de Estaciones'),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NotificationsPage()),
-                );
-              },
-            ),
+           
           ],
         ),
         body: FlutterMap(
@@ -379,7 +371,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                 tooltip: 'Rotate 90°',
                 child: const Icon(Icons.rotate_right),
               ),
-              Divider(),
+              Divider(height: 4),
               FloatingActionButton(
                 onPressed: () => _animatedMapController.animatedRotateFrom(
                   -90,
@@ -388,7 +380,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                 tooltip: 'Rotate -90°',
                 child: const Icon(Icons.rotate_left),
               ),
-              Divider(),
+              Divider(height: 4),
               FloatingActionButton(
                 onPressed: () {
                   
@@ -402,7 +394,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                 tooltip: 'Clear modifications',
                 child: const Icon(Icons.clear_all),
               ),
-              Divider(),
+              Divider(height: 4),
               FloatingActionButton(
                 onPressed: () => _animatedMapController.animatedZoomIn(
                   customId: _useTransformer ? _useTransformerId : null,
@@ -410,7 +402,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                 tooltip: 'Zoom in',
                 child: const Icon(Icons.zoom_in),
               ),
-              Divider(),
+              Divider(height: 4),
               FloatingActionButton(
                 onPressed: () => _animatedMapController.animatedZoomOut(
                   customId: _useTransformer ? _useTransformerId : null,
