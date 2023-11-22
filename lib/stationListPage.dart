@@ -290,7 +290,7 @@ class StationItem extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => StationDetailPage(
-                  stationName: name)), // Pasar pt como argumento
+                  stationName: name, parameter: "")), // Pasar pt como argumento
         );
       },
       child: ListTile(title: Text(name)),
