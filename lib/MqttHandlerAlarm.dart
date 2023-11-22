@@ -37,7 +37,7 @@ class MqttHandlerAlarm with ChangeNotifier {
         .withWillMessage('Will message')
         .startClean()
         .withWillQos(MqttQos.atLeastOnce)
-        .authenticateAs('Facundo', '1234');
+        .authenticateAs('Tomas', '1234');
 
     print('Connecting....');
 
@@ -60,7 +60,7 @@ class MqttHandlerAlarm with ChangeNotifier {
 
     final topic = 'Alertas';
     print('Subscribing to the Alertas');
-    client.subscribe(topic, MqttQos.atMostOnce);
+    client.subscribe(topic, MqttQos.atLeastOnce);
 
     client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) async {
       final recMess = c![0].payload as MqttPublishMessage;
