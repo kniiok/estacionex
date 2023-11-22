@@ -49,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         isLoading = false;
       });
-
       // La conexión fue exitosa, puedes redirigir al usuario a la página deseada
       Navigator.push(
         context,

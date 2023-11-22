@@ -12,7 +12,7 @@ class MqttHandler with ChangeNotifier {
   
   Future<Object> connect(stationId, parameter) async {
     client = MqttServerClient.withPort(
-        '150.230.80.1', 'station:$stationId', 1883);
+        '150.230.80.1', 'station:$stationId-$parameter', 1883);
     client.logging(on: true);
     client.onConnected = onConnected;
     client.onDisconnected = onDisconnected;
@@ -20,7 +20,7 @@ class MqttHandler with ChangeNotifier {
     client.onSubscribed = onSubscribed;
     client.onSubscribeFail = onSubscribeFail;
     client.pongCallback = pong;
-    client.keepAlivePeriod = 60;
+    client.keepAlivePeriod = 0;
     client.logging(on: true);
 
     /// Set the correct MQTT protocol for mosquito
