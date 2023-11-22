@@ -27,7 +27,7 @@ class _StationListPageState extends State<StationListPage> {
   bool showTrailing = false;
   double groupAlignment = -1.0;
   MqttHandlerAlarm mqttHandler = MqttHandlerAlarm();
-  int counter=0;
+ 
   @override
   void initState() {
     super.initState();
