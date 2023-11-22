@@ -151,7 +151,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                           ListenerWidget(
                               stationName: widget.stationName,
                               parameter: 'temp'),
-                          const Text('°F'),
+                          const Text('°C'),
                         ],
                       ),
                     ),
@@ -381,7 +381,7 @@ class _StationDetailPageState extends State<StationDetailPage> {
                           ListenerWidget(
                               stationName: widget.stationName,
                               parameter: 'dew_point'),
-                          const Text('°F'),
+                          const Text('°C'),
                         ],
                       ),
                     ),

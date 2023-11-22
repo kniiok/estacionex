@@ -42,6 +42,7 @@ const DarwinInitializationSettings initializationSettingsIOS = DarwinInitializat
     await flutterLocalNotificationsPlugin.show(1, 'Alarma de Clima',  dataObject['topic'], notificationDetails);
     Alarm alarm = Alarm(id: UniqueKey().hashCode, station: dataObject['topic'], data: dataObject['data'].toString(), state: 1);
     sqliteService.createItem(alarm);
+    updateNotifications();
    
  }
 

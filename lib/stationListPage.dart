@@ -13,7 +13,12 @@ class StationListPage extends StatefulWidget {
   State<StationListPage> createState() => _StationListPageState();
 
 }
-
+var counter= 0;
+updateNotifications() async {
+  List<Alarm> items = await sqliteService.getItems();
+  counter = items.length;
+  return items.length;
+}
 class _StationListPageState extends State<StationListPage> {
   int _selectedIndex = 0;
   NavigationRailLabelType labelType = NavigationRailLabelType.all;
@@ -21,18 +26,17 @@ class _StationListPageState extends State<StationListPage> {
   bool showTrailing = false;
   double groupAlignment = -1.0;
   MqttHandlerAlarm mqttHandler = MqttHandlerAlarm();
-  int counter=0;
+
   @override
   void initState() {
     super.initState();
     mqttHandler.connect();
+    updateNotifications();
+    print('CANTIDAD DE ALARMAS:');
+    print(counter);
   }
 
-  void incrementCounter() {
-    setState(() {
-      counter++;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,6 @@ class _StationListPageState extends State<StationListPage> {
             );
           },
         ),
-        if(counter!=0)
         Container(
           width: 30,
           height: 30,
