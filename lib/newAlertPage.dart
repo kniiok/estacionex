@@ -41,17 +41,17 @@ class _NewAlertPageState extends State<NewAlertPage> {
 
     if(windMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
-      query += " payload.data.wind_speed_hi_last_2_min <= "+windMaxController.text; 
+      query += " payload.data.wind_speed_hi_last_2_min <= "+(int.parse(windMaxController.text)/1.60934).toString(); 
       }else{
-      query += " AND payload.data.wind_speed_hi_last_2_min <= "+windMaxController.text;  
+      query += " AND payload.data.wind_speed_hi_last_2_min <= "+(int.parse(windMaxController.text)/1.60934).toString();  
       }
       
     }
     if(windMinController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
-      query += " payload.data.wind_speed_hi_last_2_min >= "+windMinController.text; 
+      query += " payload.data.wind_speed_hi_last_2_min >= "+(int.parse(windMinController.text)/1.60934).toString(); 
       }else{
-      query += " AND payload.data.wind_speed_hi_last_2_min >= "+windMinController.text;  
+      query += " AND payload.data.wind_speed_hi_last_2_min >= "+(int.parse(windMinController.text)/1.60934).toString();  
       }
     }
     if(windMaxController.text.isNotEmpty || windMinController.text.isNotEmpty){
@@ -59,16 +59,16 @@ class _NewAlertPageState extends State<NewAlertPage> {
     }
     if(tempMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
-      query += " payload.data.temp <= "+tempMaxController.text; 
+      query += " payload.data.temp <= "+((int.parse(tempMaxController.text)*(9/5))+32).toString(); 
       }else{
-      query += " AND payload.data.temp <= "+tempMaxController.text;  
+      query += " AND payload.data.temp <= "+((int.parse(tempMaxController.text)*(9/5))+32).toString();  
       }
     }
     if(tempMinController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
-      query += " payload.data.temp >= "+tempMinController.text; 
+      query += " payload.data.temp >= "+((int.parse(tempMinController.text)*(9/5))+32).toString(); 
       }else{
-      query += " AND payload.data.temp >= "+tempMinController.text;  
+      query += " AND payload.data.temp >= "+((int.parse(tempMinController.text)*(9/5))+32).toString();  
       }
     }
      if(tempMaxController.text.isNotEmpty || tempMinController.text.isNotEmpty){
@@ -93,16 +93,16 @@ class _NewAlertPageState extends State<NewAlertPage> {
     }
     if(dewMaxController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
-      query += " payload.data.dew_point <= "+dewMaxController.text; 
+      query += " payload.data.dew_point <= "+((int.parse(dewMaxController.text)*(9/5))+32).toString(); 
       }else{
-      query += " AND payload.data.dew_point <= "+dewMaxController.text;  
+      query += " AND payload.data.dew_point <= "+((int.parse(dewMaxController.text)*(9/5))+32).toString();  
       }
     }
     if(dewMinController.text.isNotEmpty){
       if(query[query.length-1]=='E'){
-      query += " payload.data.dew_point >= "+dewMinController.text; 
+      query += " payload.data.dew_point >= "+((int.parse(dewMinController.text)*(9/5))+32).toString(); 
       }else{
-      query += " AND payload.data.dew_point >= "+dewMinController.text;  
+      query += " AND payload.data.dew_point >= "+((int.parse(dewMinController.text)*(9/5))+32).toString();  
       }
     }
      if(dewMaxController.text.isNotEmpty || dewMinController.text.isNotEmpty){
