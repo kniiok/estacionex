@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     final String password = passwordController.text;
 
     final client = MqttServerClient('150.230.80.1', '1883');
-    client.logging(on: false);
+    client.logging(on: true);
 
     final connMess = MqttConnectMessage()
         .withClientIdentifier('dart_client')

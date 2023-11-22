@@ -26,7 +26,7 @@ class NotificationPage extends StatefulWidget {
 }
 
 SqliteService sqliteService = SqliteService();
-
+final List<NotificationCard> listAlarms = [];
 class _NotificationPageState extends State<NotificationPage> {
   late SqliteService _sqliteService;
 
@@ -41,7 +41,10 @@ class _NotificationPageState extends State<NotificationPage> {
   }
 
   List<Alarm> _alarms = [];
-  final List<NotificationCard> listAlarms = [];
+  
+
+ 
+
 // This function is used to fetch all data from the database
   void _getAlarms() async {
     final data = await _sqliteService.getItems();

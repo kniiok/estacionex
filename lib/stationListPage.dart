@@ -5,6 +5,7 @@ import 'package:sensor_flutter_app/stationDetailPage.dart';
 import 'package:sensor_flutter_app/userPage.dart';
 import 'notificationsPage.dart';
 import 'package:sensor_flutter_app/MqttHandlerAlarm.dart';
+import 'package:sensor_flutter_app/notificationsPage.dart';
 
 class StationListPage extends StatefulWidget {
   const StationListPage({super.key});
@@ -21,7 +22,7 @@ class _StationListPageState extends State<StationListPage> {
   bool showTrailing = false;
   double groupAlignment = -1.0;
   MqttHandlerAlarm mqttHandler = MqttHandlerAlarm();
-  int counter=0;
+  int counter= listAlarms.length;
   @override
   void initState() {
     super.initState();

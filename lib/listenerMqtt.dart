@@ -35,7 +35,7 @@ class _ListenerWidgetState extends State<ListenerWidget> {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text(value,
+              Text(value=='null'||value=='NaN'?'-':value,
                   style: const TextStyle(color: Colors.black, fontSize: 18))
             ],
           );
@@ -70,7 +70,7 @@ class _MyWidgetState extends State<MyWidget> {
     prefs = await SharedPreferences.getInstance();
     final ultMsj = prefs.getString('ultMsj-$stationName-$parameter') ?? '';
     //print('Get-$ultMsj');
-    return ultMsj;
+    return ultMsj==null||ultMsj=='NaN'?'-':ultMsj;
   }
 
   @override

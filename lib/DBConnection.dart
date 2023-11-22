@@ -3,7 +3,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 class Database {
   static final Database _instance = Database._internal();
   Db _db= Db(
-        'mongodb://sistemas_distribuidos:j2CTTKqbZaNyQqsd@150.230.80.1:27017/?authMechanism=DEFAULT/mqtt_auth');
+        'mongodb://sistemas_distribuidos:j2CTTKqbZaNyQqsd@150.230.80.1:27017/?authMechanism=DEFAULT');
 
   factory Database() {
     return _instance;
@@ -12,7 +12,7 @@ class Database {
   Database._internal() {
     if (_db == null){
     _db = Db(
-        'mongodb://sistemas_distribuidos:j2CTTKqbZaNyQqsd@150.230.80.1:27017/?authMechanism=DEFAULT/mqtt_auth');
+        'mongodb://sistemas_distribuidos:j2CTTKqbZaNyQqsd@150.230.80.1:27017/?authMechanism=DEFAULT');
     }
         
   }
@@ -24,7 +24,7 @@ class Database {
 
   Future<void> closeConnection() async {
     await _db.close();
-    print('Erro disconnected');
+    print('Error disconnected');
   }
 
   getDbState() {
@@ -33,12 +33,13 @@ class Database {
   }
 
   getCollection(){
-    return _db.collection('users');
+    return _db.collection('alarms');
   }
 
   isConnected(){
     return _db.isConnected;
   }
 
-  DbCollection get users => _db.collection('users');
+  DbCollection get alarms => _db.collection('notifications');
+
 }
