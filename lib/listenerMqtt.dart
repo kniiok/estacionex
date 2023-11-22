@@ -76,6 +76,7 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+
         future: getUltMsj(widget.stationName, widget.parameter),
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.data!.isNotEmpty) {
@@ -92,8 +93,7 @@ class _MyWidgetState extends State<MyWidget> {
                   )
                 ]);
           } else {
-            return SizedBox(
-                width: 16, height: 16, child: CircularProgressIndicator());
+                return Text("- ");
           }
         });
   }

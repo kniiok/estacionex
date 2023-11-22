@@ -11,7 +11,7 @@ class NotificationsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Notificaciones'),
       ),
-      body: Center(
+      body: const Center(
         child: NotificationPage(),
       ),
     );
@@ -81,7 +81,8 @@ class _NotificationPageState extends State<NotificationPage> {
               ],
               notificationCardTitle: 'Alerta',
               notificationCards: [...listAlarms],
-              cardColor: Color.fromARGB(255, 229, 166, 166),
+              cardColor: Color.fromARGB(255, 250, 237, 192),
+
               padding: 16,
               actionTitle: Text(
                 'Notificaciones',
@@ -107,7 +108,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 setState(() {
                   var alarm=sqliteService
                       .getItem(int.parse(listAlarms[index].title));
-                  
+
                   sqliteService.deleteFutureItem(alarm);
                   listAlarms.removeAt(index);
                 });
@@ -120,7 +121,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 }
                   listAlarms.clear();
                 });
-               
+
               },
               onTapViewCallback: (index) {
                 print(index);
