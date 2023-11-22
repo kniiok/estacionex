@@ -13,7 +13,7 @@ import 'notificationsPage.dart';
 import 'package:flutter_titled_container/flutter_titled_container.dart';
 
 class StationDetailPage extends StatefulWidget {
-  const StationDetailPage({super.key, required this.stationName});
+  const StationDetailPage({super.key, required this.stationName, required String parameter});
   final String stationName;
 
   @override
