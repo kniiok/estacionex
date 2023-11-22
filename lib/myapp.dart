@@ -19,12 +19,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool isLoading = false;
+
 
   Future<void> attemptLogin(BuildContext context) async {
-    setState(() {
-      isLoading = true;
-    });
+  
     final String username = usernameController.text;
     final String password = passwordController.text;
 
@@ -46,10 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       
       client.connect();
-      setState(() {
-        isLoading = false;
-      });
-
+     
       // La conexión fue exitosa, puedes redirigir al usuario a la página deseada
       Navigator.push(
         context,
@@ -58,9 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     } on NoConnectionException catch (e) {
       print('Client exception: $e');
       client.disconnect();
-      setState(() {
-        isLoading = false;
-      });
+    
       showDialog(
         context: context,
         builder: (context) {
@@ -143,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: Text('Iniciar Sesión'),
               ),
-              isLoading ? CircularProgressIndicator() : Text('')
+             
             ],
           ),
         ),

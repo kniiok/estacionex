@@ -42,6 +42,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
   List<Alarm> _alarms = [];
   final List<NotificationCard> listAlarms = [];
+
 // This function is used to fetch all data from the database
   void _getAlarms() async {
     final data = await _sqliteService.getItems();
@@ -49,14 +50,35 @@ class _NotificationPageState extends State<NotificationPage> {
     setState(() {
       _alarms = data;
       for (var alarm in _alarms) {
+        var stationName = '';
+        switch (alarm.station.substring(9, 15)) {
+          case '123501':
+            stationName = 'Cielos Del Sur';
+            break;
+          case '138225':
+            stationName = 'Glyn';
+            break;
+          case '145839':
+            stationName = 'Villa Favaloro';
+            break;
+          case '145862':
+            stationName = 'Las Santinas Virch';
+            break;
+          case '167442':
+            stationName = 'Glyn 3';
+            break;
+          default:
+            stationName = '';
+            break;
+        }
         listAlarms.add(NotificationCard(
           date: DateTime.now(),
           leading: Icon(
-            Icons.warning_rounded,
+            Icons.warning,
             size: 48,
           ),
           title: alarm.id.toString(),
-          subtitle: alarm.station+' '+alarm.data,
+          subtitle: stationName + ' \n' + alarm.data,
         ));
       }
     });
@@ -79,7 +101,6 @@ class _NotificationPageState extends State<NotificationPage> {
               notificationCardTitle: 'Alerta',
               notificationCards: [...listAlarms],
               cardColor: Color.fromARGB(255, 250, 237, 192),
-
               padding: 16,
               actionTitle: Text(
                 'Notificaciones',
@@ -96,15 +117,16 @@ class _NotificationPageState extends State<NotificationPage> {
                   color: Color.fromARGB(255, 102, 75, 236),
                 ),
               ),
-              clearAllNotificationsAction: Icon(Icons.keyboard_arrow_up_outlined),
+              clearAllNotificationsAction:
+                  Icon(Icons.keyboard_arrow_up_outlined),
               clearAllStacked: Text('limpiar todo'),
               cardClearButton: Text('limpiar'),
               cardViewButton: Text('volver'),
               onTapClearCallback: (index) {
                 print(index);
                 setState(() {
-                  var alarm=sqliteService
-                      .getItem(int.parse(listAlarms[index].title));
+                  var alarm =
+                      sqliteService.getItem(int.parse(listAlarms[index].title));
 
                   sqliteService.deleteFutureItem(alarm);
                   listAlarms.removeAt(index);
@@ -112,13 +134,12 @@ class _NotificationPageState extends State<NotificationPage> {
               },
               onTapClearAll: () {
                 setState(() {
-                   for (var alarm in _alarms) {
-                  alarm.state = 0;
-                  sqliteService.deleteItem(alarm);
-                }
+                  for (var alarm in _alarms) {
+                    alarm.state = 0;
+                    sqliteService.deleteItem(alarm);
+                  }
                   listAlarms.clear();
                 });
-
               },
               onTapViewCallback: (index) {
                 print(index);
@@ -186,7 +207,8 @@ class SqliteService {
 
   Future<List<Alarm>> getItems() async {
     final db = await initializeDB();
-    final List<Map<String, Object?>> queryResult = await db.query('alarms', where: "state = 1");
+    final List<Map<String, Object?>> queryResult =
+        await db.query('alarms', where: "state = 1");
     return queryResult.map((e) => Alarm.fromMap(e)).toList();
   }
 
@@ -215,7 +237,7 @@ class SqliteService {
   Future<void> deleteFutureItem(Future<Alarm> alarm) async {
     final db = await initializeDB();
     final alarma = await alarm;
-    alarma.state=0;
+    alarma.state = 0;
     try {
       await db.update("alarms", alarma.toMap(),
           where: "id = ?", whereArgs: [alarma.id]);

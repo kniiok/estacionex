@@ -40,7 +40,37 @@ const DarwinInitializationSettings initializationSettingsIOS = DarwinInitializat
     );
     dynamic dataObject = jsonDecode(data);
     await flutterLocalNotificationsPlugin.show(1, 'Alarma de Clima',  dataObject['topic'], notificationDetails);
-    Alarm alarm = Alarm(id: UniqueKey().hashCode, station: dataObject['topic'], data: dataObject['data'].toString(), state: 1);
+    if(dataObject['data']['temp']!=null){
+      dataObject['data']['temp'] = (((dataObject['data']['temp'] - 32)*5/9).toStringAsFixed(1)).toString();
+    }
+    if(dataObject['data']['dew_point']!=null){
+      dataObject['data']['dew_point'] = (((dataObject['data']['dew_point'] - 32)*5/9).toStringAsFixed(1)).toString();
+    }
+    if(dataObject['data']['wind_speed_hi_last_2_min']!=null){
+      dataObject['data']['wind_speed_hi_last_2_min'] = ((dataObject['data']['wind_speed_hi_last_2_min']*1.60934).toStringAsFixed(1)).toString();
+    }
+    var stationName='';
+    switch (dataObject['topic'].toString().substring(10, 16)) {
+      case '123501':
+        stationName='Cielos Del Sur';
+        break;
+      case '138225':
+        stationName='Glyn';
+        break;
+      case '145839':
+        stationName='Villa Favaloro';
+        break;
+      case '145862':
+        stationName='Las Santinas Virch';
+        break;
+      case '167442':
+        stationName='Glyn 3';
+        break;
+      default:
+      stationName='';
+      break;
+    }
+    Alarm alarm = Alarm(id: UniqueKey().hashCode, station: utf8.decode(dataObject['topic'].codeUnits), data: dataObject['data'].toString().substring(1, dataObject['data'].toString().length-1), state: 1);
     sqliteService.createItem(alarm);
     updateNotifications();
    
